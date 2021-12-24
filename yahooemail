@@ -1,0 +1,39 @@
+import org.apache.poi.EncryptedDocumentException;
+import org.apache.poi.ss.usermodel.WorkbookFactory;
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.firefox.FirefoxDriver;
+import org.apache.poi.xssf.usermodel.XSSFWorkbook;
+
+
+public class Yahoomail {
+
+	public static void main(String[] args) throws EncryptedDocumentException, IOException {
+		// TODO Auto-generated method stub
+		// TODO Auto-generated method stub
+				System.setProperty("webdriver.gecko.driver", "//Users//sadiatajreen//Downloads//geckodriver");
+				
+				WebDriver driver = new FirefoxDriver();
+				//wb = new XSSFWorkbook("(./testdata.xlsx");
+	          // XSSFworkbook wb = WorkbookFactory.create(fis);
+				FileInputStream fis = new FileInputStream("./testdata.xlsx");
+				//Workbook wb = WorkbookFactory.create(fis);
+				XSSFWorkbook wb =  (XSSFWorkbook) WorkbookFactory.create(fis);
+				
+	            String emailId = wb.getSheet("Sheet2").getRow(0).getCell(0).getStringCellValue();
+	            String password = wb.getSheet("Sheet2").getRow(1).getCell(0).getStringCellValue();
+	           
+				
+				driver.get("https://login.yahoo.com/");
+				System.out.println("Page is loaded successfully");
+				driver.findElement(By.id("login-username")).sendKeys(emailId);
+				driver.findElement(By.cssSelector("input[type='submit'")).click();
+				driver.findElement(By.cssSelector("#login-passwd")).sendKeys(password);
+				driver.findElement(By.xpath("//button[@name=‘verifyPassword’]")).click();
+				System.out.println("yahoo mail is logged in successfully");
+				
+			////*[@id='login-passwd']	
+
+	}
+
+}
